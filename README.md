@@ -1,2 +1,2 @@
 # Pruebas Spring Boot y Spring Data con mongodb
-# de Miguel Garvia Ballesteros Z2
+# Miguel Garvia Ballesteros
