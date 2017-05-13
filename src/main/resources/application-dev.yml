@@ -1,4 +1,4 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://metaclura:Sesamo01@ds139761.mlab.com:39761/ing-workshop
+      uri: mongodb://metaclura%40gmail.com:Sesamo01@ds139761.mlab.com:39761/ing-workshop
