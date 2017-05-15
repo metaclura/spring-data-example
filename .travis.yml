@@ -2,7 +2,3 @@ language: java
 jdk:
 - oraclejdk8
 script: mvn -B verify
-
-deploy:
-    provider: heroku
-    App: spring-data-example
