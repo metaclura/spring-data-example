@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/customers")
 public class CustomerController {
-    @Autowired
+
 	private CustomerRepository customerRepository;
 	
-	public CustomerController() {
+	public CustomerController( CustomerRepository customerRepository ) {
+		this.customerRepository = customerRepository;
 	}
 
 	@RequestMapping(method=RequestMethod.POST)

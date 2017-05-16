@@ -1,5 +1,6 @@
 package hello;
 
+import static com.lordofthejars.nosqlunit.mongodb.MongoDbRule.MongoDbRuleBuilder.newMongoDbRule;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.equalTo;
@@ -20,7 +21,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
 import com.lordofthejars.nosqlunit.core.LoadStrategyEnum;
 import com.lordofthejars.nosqlunit.mongodb.MongoDbRule;
-import static com.lordofthejars.nosqlunit.mongodb.MongoDbRule.MongoDbRuleBuilder.newMongoDbRule;
 
 import io.restassured.http.ContentType;
 
@@ -33,12 +33,12 @@ public class CustomerControllerTest {
 	@Autowired
 	private ApplicationContext applicationContext;
 
-	@LocalServerPort
-	private int port;
-
 	@Rule
 	public MongoDbRule mongoDbRule = newMongoDbRule().defaultSpringMongoDb("test");
-
+	
+	@LocalServerPort
+	private int port;
+	
 	private String endpoint;
 	
 	@Before
@@ -49,14 +49,14 @@ public class CustomerControllerTest {
 	@Test
 	public void create() {
 		given().
-		contentType(ContentType.JSON).
-		body(new Customer().setFirstName("Angulo").setLastName("Agudo")).
-	when().
-		post(endpoint).
-	then().
-		statusCode(201).
-		body("firstName", equalTo("Angulo")).
-		body("lastName", equalTo("Agudo"));		
+			contentType(ContentType.JSON).
+			body(new Customer().setFirstName("Angulo").setLastName("Agudo")).
+		when().
+			post(endpoint).
+		then().
+			statusCode(201).
+			body("firstName", equalTo("Angulo")).
+			body("lastName", equalTo("Agudo"));
 	}
 	
 	@Test
