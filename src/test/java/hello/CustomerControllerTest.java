@@ -17,9 +17,15 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.github.fakemongo.Fongo;
 import com.lordofthejars.nosqlunit.annotation.UsingDataSet;
 import com.lordofthejars.nosqlunit.core.LoadStrategyEnum;
+import com.lordofthejars.nosqlunit.mongodb.MongoDbConfiguration;
 import com.lordofthejars.nosqlunit.mongodb.MongoDbRule;
+import com.lordofthejars.nosqlunit.mongodb.SpringMongoDbRule;
+import com.mongodb.MockMongoClient;
+import com.mongodb.MongoClient;
+
 import static com.lordofthejars.nosqlunit.mongodb.MongoDbRule.MongoDbRuleBuilder.newMongoDbRule;
 
 import io.restassured.http.ContentType;
@@ -37,9 +43,17 @@ public class CustomerControllerTest {
 	private int port;
 
 	@Rule
-	public MongoDbRule mongoDbRule = newMongoDbRule().defaultSpringMongoDb("test");
+	public MongoDbRule mongoDbRule = getSpringMongoDbRule();
 
 	private String endpoint;
+	
+	public static SpringMongoDbRule getSpringMongoDbRule() {
+		MongoDbConfiguration mongoDbConfiguration = new MongoDbConfiguration();
+		mongoDbConfiguration.setDatabaseName("test");
+		MongoClient mongo = MockMongoClient.create(new Fongo("this-fongo-instance-is-ignored"));
+		mongoDbConfiguration.setMongo(mongo);
+		return new SpringMongoDbRule(mongoDbConfiguration);
+	}	
 	
 	@Before
 	public void setUp() {	
